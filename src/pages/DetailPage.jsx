@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import DetailBox from "components/DetailBox";
 
 function DetailPage() {
-  return (
-    <div>Detail</div>
-  )
+  return <DetailBox />;
 }
 
-export default DetailPage
+export default DetailPage;
