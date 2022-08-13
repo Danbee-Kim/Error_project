@@ -1,12 +1,14 @@
-import React from 'react'
-import Header from 'components/Header'
+import React from "react";
+import MainPageTable from "components/MainPageTable";
+import Header from "components/Header";
 
 function MainPage() {
   return (
-    <div>
-      <Header/>
-    </div>
-  )
+    <>
+      <Header />;
+      <MainPageTable />;
+    </>
+  );
 }
 
-export default MainPage
+export default MainPage;

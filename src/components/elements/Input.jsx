@@ -10,12 +10,11 @@ const Input = ({
   changeHandler,
   minLength,
   maxLength,
-  type
 }) => {
   return (
     <FormInputContainer>
       <FormInput
-        type={type}
+        type="text"
         id={id}
         name={name}
         value={value}
@@ -52,12 +51,14 @@ const FormInput = styled.input`
   outline: none;
   ${(props) => {
     return (
+      props.type === "text" &&
       css`
-        font-size: 14px;
-        width: ${(props) => props.width || "100%"};
-        border-radius: 20px;
-        border: 2px solid #7092bf;
-        height: 35px;
+        font-size: 18px;
+        width: ${(props) => props.width || "90%"};
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #679fb6;
+        border-radius: 3px;
       `
     );
   }}
