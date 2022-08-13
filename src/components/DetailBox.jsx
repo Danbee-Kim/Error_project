@@ -30,7 +30,7 @@ const DetailContainer = styled.div`
   background-color: #f0efe9;
   margin: 80px auto 20px;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px #gray;
+  box-shadow: 5px 5px 5px #eee;
 `;
 
 const DetailHeader = styled.div``;
