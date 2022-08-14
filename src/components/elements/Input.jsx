@@ -10,11 +10,11 @@ const Input = ({
   changeHandler,
   minLength,
   maxLength,
+  type,
 }) => {
   return (
     <FormInputContainer>
       <FormInput
-        type="text"
         id={id}
         name={name}
         value={value}
@@ -24,6 +24,7 @@ const Input = ({
         onChange={changeHandler}
         minLength={minLength}
         maxLength={maxLength}
+        type={type}
       />
     </FormInputContainer>
   );
@@ -51,15 +52,20 @@ const FormInput = styled.input`
   outline: none;
   ${(props) => {
     return (
-      props.type === "text" &&
       css`
-        font-size: 18px;
+        font-size: 15px;
         width: ${(props) => props.width || "90%"};
         padding: 10px;
         margin: 10px;
         border: 1px solid #679fb6;
         border-radius: 3px;
+        :focus{
+          border:2px solid #679fb6
+        }
+        cursor: pointer;
       `
     );
   }}
+
+
 `;

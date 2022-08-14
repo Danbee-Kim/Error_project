@@ -25,7 +25,7 @@ function DetailBox() {
 export default DetailBox;
 
 const DetailContainer = styled.div`
-  width: 1280px;
+  width: 80vw;
   height: 400px;
   background-color: #f0efe9;
   margin: 80px auto 20px;

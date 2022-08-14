@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { faTrash, faHouse, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Button = ({ children, size, variant, type, clickHandler }) => {
+const Button = ({ children, size, variant, type, clickHandler}) => {
   return (
     <StButton size={size} variant={variant} type={type} onClick={clickHandler}>
       {children}
@@ -55,6 +55,24 @@ const StButton = styled.button`
         cursor: pointer;
         :hover {
           border: 4px solid #7092bf;
+        }
+      `
+    );
+  }}
+  ${(props) => {
+    return (
+      props.size === "mini" &&
+      css`
+        font-size: 12px;
+        padding: 5px 12px;
+        border: 2px solid #b8b0dd;
+        background-color: #ffff;
+        height: 45px;
+        border-radius: 8px;
+        width: 50px;
+        cursor: pointer;
+        :hover {
+          background-color: #b8b0dd;
         }
       `
     );
