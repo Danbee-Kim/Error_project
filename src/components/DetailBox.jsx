@@ -19,10 +19,11 @@ function DetailBox() {
     <React.Fragment>
       <Header />
       <DetailContainer>
+
         {isEdit ? (
-          <DetailEditor list={list} />
+          <DetailEditor list={list} setIsEdit={() => setIsEdit(!isEdit)} />
         ) : (
-          <DetailViewer list={list} setIsEdit={setIsEdit} isEdit={isEdit} />
+          <DetailViewer list={list} setIsEdit={() => setIsEdit(!isEdit)} />
         )}
         <CommentList />
       </DetailContainer>

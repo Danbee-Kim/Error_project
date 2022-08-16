@@ -1,23 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getRefreshToken } from "actions/Cookie";
 import axios from "axios";
 
 const initialState = {
   todos: [],
 };
-
+console.log(getRefreshToken());
 export const __postTodos = createAsyncThunk(
   "todos/postTodos",
   async (payload, thunkAPI) => {
     console.log(payload, "payload!!!!!!!!!!!!!!!!!!");
     try {
+      console.log(payload);
       const data = await axios.post(
         `${process.env.REACT_APP_SERVER_BASE_URL}/articles`,
-        payload
-        // {
-        //   title: payload.title,
-        //   content:payload.desc
-        // }
+
+        payload,
+        {
+          headers: {
+            Authorization: getRefreshToken(),
+          },
+        }
       );
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -25,7 +30,8 @@ export const __postTodos = createAsyncThunk(
   }
 );
 
-export const __getTodos = createAsyncThunk(
+
+export const __getTodo = createAsyncThunk(
   "todos/getTodos",
   async (payload, thunkAPI) => {
     try {
@@ -48,6 +54,11 @@ export const __updateTodos = createAsyncThunk(
         `${process.env.REACT_APP_SERVER_BASE_URL}/articles/${payload.id}`,
         {
           content: payload.content,
+        },
+        {
+          headers: {
+            Authorization: getRefreshToken(),
+          },
         }
       );
       return thunkAPI.fulfillWithValue(payload);
@@ -63,7 +74,10 @@ export const __deleteTodos = createAsyncThunk(
     try {
       const data = await axios.delete(
         `${process.env.REACT_APP_SERVER_BASE_URL}/articles/${payload}`,
-        payload
+        payload,
+        {
+          Authorization: getRefreshToken(),
+        }
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -105,6 +119,7 @@ const todosSlice = createSlice({
       state.isLoading = true;
     },
     [__updateTodos.fulfilled]: (state, { payload }) => {
+      console.log(payload);
       state.isLoading = false;
       state.todos = state.todos.map((todo) =>
         todo.id === payload.id ? { ...todo, content: payload.content } : todo

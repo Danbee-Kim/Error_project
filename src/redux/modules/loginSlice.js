@@ -25,8 +25,9 @@ export const __postToken = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const refresh_token = getRefreshToken();
+      console.log(refresh_token);
       const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/test`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/tests`,
         "",
         {
           headers: {

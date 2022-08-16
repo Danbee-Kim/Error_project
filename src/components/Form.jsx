@@ -12,8 +12,10 @@ function Form() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.todos.todos);
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState({
+    title:"",
+    content:""
+  });
 
   const { title, content } = post;
 
@@ -26,7 +28,6 @@ function Form() {
   };
 
   const onSubmitHandler = () => {
-    dispatch(__postToken());
     dispatch(__postTodos(post));
     navigate("/");
   };
@@ -41,19 +42,17 @@ function Form() {
           type="text"
           name="title"
           changeHandler={changeHandler}
-          value={title || ""}
+          value={title}
         />
         <h3>내용</h3>
         <TodoTextarea
           name="content"
-          value={content || ""}
+          value={content}
           changeHandler={changeHandler}
         />
       </InputArea>
       <BtnArea>
-        <Button size={"medium"} type="submit">
-          작성완료
-        </Button>
+        <Button size={"medium"} type="submit">작성완료</Button>
       </BtnArea>
     </form>
   );

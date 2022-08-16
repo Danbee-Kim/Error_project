@@ -6,15 +6,18 @@ import styled from "styled-components";
 import TodoTextarea from "./elements/Input";
 import { __updateTodos } from "redux/modules/todosSlice";
 
-function DetailEditor({ list }) {
+function DetailEditor({ list, setIsEdit}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [content, setContent] = useState(list.content);
 
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(__updateTodos({ content }));
-    navigate("/detail");
+    console.log(content)
+    console.log(list)
+    dispatch(__updateTodos({ "id":list.id,"content":content }));
+    setIsEdit()
   };
   const onChangeHandler = (e) => {
     setContent(e.target.value);
