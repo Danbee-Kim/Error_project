@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { __getTodos, __deleteTodos } from "../redux/modules/todosSlice";
 import { useDispatch, useSelector } from "react-redux";

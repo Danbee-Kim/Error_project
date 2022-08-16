@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo, __getTodos, __postTodos } from "../redux/modules/todosSlice";
+import { __postTodos } from "../redux/modules/todosSlice";
 import { useNavigate } from "react-router-dom";
 import Button from "./elements/Button";
 import TodoTextarea from "./elements/Textarea";
@@ -13,12 +13,9 @@ function Form() {
 
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.todos.todos);
-  const [post, setPost] = useState({
-    
-  });
+  const [post, setPost] = useState({});
 
- const {title, content}=post
-  console.log(posts);
+  const { title, content } = post;
 
   const changeHandler = (e) => {
     const { value, name } = e.target;
@@ -28,16 +25,11 @@ function Form() {
     });
   };
 
-  console.log("post:", post);
-
   const onSubmitHandler = () => {
-    // dispatch(addTodo(post));
     dispatch(__postTodos(post));
     dispatch(__postToken())
     navigate("/");
   };
-
-  console.log(post);
 
   return (
     <form onSubmit={onSubmitHandler}>
@@ -47,19 +39,17 @@ function Form() {
           type="text"
           name="title"
           changeHandler={changeHandler}
-          value={title}
+          value={title || ""}
         />
         <h3>내용</h3>
         <TodoTextarea
           name="content"
-          value={content}
+          value={content || ""}
           changeHandler={changeHandler}
         />
       </InputArea>
       <BtnArea>
-        <Button size={"medium"}>
-          작성완료
-        </Button>
+        <Button size={"medium"}>작성완료</Button>
       </BtnArea>
     </form>
   );

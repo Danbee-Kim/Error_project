@@ -5,12 +5,18 @@ const initialState = {
   todos: [],
 };
 
-export const __getTodos = createAsyncThunk(
-  "todos/getTodos",
+export const __postTodos = createAsyncThunk(
+  "todos/postTodos",
   async (payload, thunkAPI) => {
+    console.log(payload, "payload!!!!!!!!!!!!!!!!!!");
     try {
-      const data = await axios.get(
-        `${process.env.REACT_SERVER_BASE_URL}/api/articles`
+      const data = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/articles`,
+        payload
+        // {
+        //   title: payload.title,
+        //   content:payload.desc
+        // }
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -19,20 +25,32 @@ export const __getTodos = createAsyncThunk(
   }
 );
 
-export const __postTodos = createAsyncThunk(
-  "todos/postTodos",
+export const __getTodos = createAsyncThunk(
+  "todos/getTodos",
   async (payload, thunkAPI) => {
-    console.log(payload, "payload!!!!!!!!!!!!!!!!!!");
     try {
-      const data = await axios.post(
-        `${process.env.REACT_SERVER_BASE_URL}/api/articles`,
-        payload
-        // {
-        //   title: payload.title,
-        //   content:payload.desc
-        // }
+      const data = await axios.get(
+        `${process.env.REACT_SERVER_BASE_URL}/api/articles`
       );
+
       return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __updateTodos = createAsyncThunk(
+  "todos/updateTodos",
+  async (payload, thunkAPI) => {
+    try {
+      await axios.patch(
+        `${process.env.REACT_APP_BASE_URL}/api/articles/${payload.id}`,
+        {
+          content: payload.content,
+        }
+      );
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -57,16 +75,20 @@ export const __deleteTodos = createAsyncThunk(
 const todosSlice = createSlice({
   name: "todos",
   initialState,
-  reducers: {
-    addTodo: (state, action) => {
+  reducers: {},
+  extraReducers: {
+    [__postTodos.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    },
+    [__postTodos.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       state.todos = [...state.todos, action.payload];
     },
-    deleteTodo: (state, action) => {
-      console.log(action, "action");
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+    [__postTodos.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
-  },
-  extraReducers: {
+
     [__getTodos.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
@@ -79,16 +101,18 @@ const todosSlice = createSlice({
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
 
-    [__postTodos.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    [__updateTodos.pending]: (state) => {
+      state.isLoading = true;
     },
-    [__postTodos.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.todos = [...state.todos, action.payload];
+    [__updateTodos.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.todos = state.todos.map((todo) =>
+        todo.id === payload.id ? { ...todo, content: payload.content } : todo
+      );
     },
-    [__postTodos.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+    [__updateTodos.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
     },
 
     [__deleteTodos.pending]: (state) => {
@@ -105,5 +129,4 @@ const todosSlice = createSlice({
   },
 });
 
-export const { addTodo, deleteTodo } = todosSlice.actions;
 export default todosSlice.reducer;
