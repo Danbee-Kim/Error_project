@@ -4,14 +4,13 @@ import Input from './elements/Input'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import BigLogo from "../src_assets/biglogo.png"
-import { useDispatch } from 'react-redux'
-import { __postLogin } from 'redux/modules/loginSlice'
+import axios from 'axios'
+import { setRefreshTokenToCookie } from "../actions/Cookie"
 
 
 
 function Login() {
   const navigate= useNavigate()
-  const dispatch= useDispatch()
 
   const [login,setLogin]=useState({
     newId:"",
@@ -20,14 +19,29 @@ function Login() {
   const {newId,newPass}=login;
   
   //유효성검사
-  const [idVali,setIdVali]=useState("")
-  const [passVali,setPassVali]=useState("")
+  const [idVali,setIdVali]=useState("");
+  const [passVali,setPassVali]=useState("");
 
+  const postLogin=async()=>{
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/login`,
+        {username:newId,password:newPass}
+      );
+      console.log(response)
+      setRefreshTokenToCookie(response.headers.authorization);
+      
+      (alert(response.data)).then(()=>(navigate("/")));
+    } catch (error) {
+      alert(error)
+    }
+  }
   const handleSubmit=(e)=>{
     e.preventDefault();
     newId.trim()===""? setIdVali("아이디를 입력해주세요!"):setIdVali("");
     newPass.trim()===""?  setPassVali("비밀번호를 입력해주세요!"):setPassVali("");
-    dispatch(__postLogin({username:newId,password:newPass}))
+   postLogin({username:newId,password:newPass})
+  
   }
   const onChangeHandler=(e)=>{
     const {value,name}= e.target

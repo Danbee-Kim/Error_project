@@ -28,16 +28,9 @@ export const __postTodos = createAsyncThunk(
 export const __getTodos = createAsyncThunk(
   "todos/getTodos",
   async (payload, thunkAPI) => {
-    // let token = localStorage.getItem("token");
-    // console.log("token!!!!:", token);
     try {
       const data = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/articles`
-        // {
-        //   headers: {
-        //     token: token,
-        //   },
-        // }
+        `${process.env.REACT_SERVER_BASE_URL}/api/articles`
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -68,7 +61,7 @@ export const __deleteTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/api/articles/${payload}`,
+        `${process.env.REACT_SERVER_BASE_URL}/api/articles/${payload}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);

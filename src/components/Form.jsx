@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./elements/Button";
 import TodoTextarea from "./elements/Textarea";
 import Input from "./elements/Input";
+import { __postToken } from "redux/modules/loginSlice";
 
 function Form() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function Form() {
 
   const onSubmitHandler = () => {
     dispatch(__postTodos(post));
+    dispatch(__postToken())
     navigate("/");
   };
 

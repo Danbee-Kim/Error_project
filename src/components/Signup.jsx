@@ -3,13 +3,10 @@ import Input from "./elements/Input";
 import styled from "styled-components";
 import BigLogo from "../src_assets/biglogo.png";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  __postCheckId,
-  __postInfo,
-  __postToken,
-} from "redux/modules/loginSlice";
+import { __postCheckId, __postInfo } from "redux/modules/loginSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 function Signup() {
   const dispatch = useDispatch();
@@ -27,6 +24,7 @@ function Signup() {
   const [idVali, setIdVali] = useState("");
   const [passVali, setPassVali] = useState("");
   const [passCheck, setPassCheck] = useState("");
+
   const onChangeHandler = (e) => {
     const { value, name } = e.target;
     setInfo({
@@ -50,29 +48,44 @@ function Signup() {
         : setPassVali("");
     if (name === "valiPass")
       newPass !== value
-        ? setPassCheck("비밀번호가 불일치 합니다")
+        ? setPassCheck("비밀번호가 불일치합니다")
         : setPassCheck("");
   };
 
-  const checkDone = useSelector((state) => state.response);
-  const [idChecked, setIdChecked] = useState("false");
-  const onClickCheck = () => {
-    if (!checkDone) {
-      return alert("이미 사용 중인 아이디입니다");
+  const [idChecked, setIdChecked] = useState(false);
+  const onClickCheck = async () => {
+    if (newId.trim() === "") {
+      return alert("아이디를 입력해주세요!");
     }
-    // dispatch(__postCheckId({username:newId}))
-    // dispatch(__postToken())
-    if (checkDone) {
-      setIdChecked(true);
-    }
-    navigate("/");
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/signup/check`,
+        { username: newId }
+      );
+      console.log("RESPONSE", response.data);
+      if (response.data) {
+        setIdChecked(true);
+        return alert("멋진 ID!");
+      }
+      if (!response.data) {
+        setIdChecked(false);
+        return alert("중복되는 ID!");
+      }
+    } catch {}
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (newId.trim() === "" || newPass.trim() === "" || valiPass === "") {
+      return alert("아이디랑 비밀번호를 입력해주세요!");
+    }
+    if (!idChecked) {
+      return alert("아이디 중복확인을 해주세요!");
+    }
     if (idChecked) {
-      dispatch(__postInfo({ username: newId, password: newPass }));
-      navigate("/login");
+      dispatch(__postInfo({ username: newId, password: newPass })).then(() =>
+        navigate("/login")
+      );
     }
   };
   const onClickHandler = () => {
@@ -97,7 +110,11 @@ function Signup() {
               changeHandler={onChangeHandler}
               maxLength="10"
             />
-            <Button clickHandler={onClickCheck} size="mini">
+            <Button
+              clickHandler={onClickCheck}
+              size="mini"
+              disabled={idVali ? true : false}
+            >
               중복확인
             </Button>
           </NameTag>
@@ -140,7 +157,11 @@ function Signup() {
             <Button size="small" clickHandler={onClickHandler}>
               뒤로가기
             </Button>
-            <Button type="submit" size="small">
+            <Button
+              type="submit"
+              size="small"
+              disabled={passVali ? true : false}
+            >
               회원가입
             </Button>
           </Setbtns>
