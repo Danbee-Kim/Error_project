@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "components/elements/Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { __deleteComments } from "redux/modules/commentsSlice";
 
 function CommentList() {
-  const {comments}=useSelector((state)=>state.comments);
+  const { comments } = useSelector((state) => state.comments);
+  const dispatch = useDispatch();
+
+  const handleDeleteComment = () => {
+    dispatch(__deleteComments(comments.id));
+  };
+
   return (
     <CommentListContainer>
       {comments.map((comment) => {
@@ -16,7 +23,9 @@ function CommentList() {
               <Content>{comment.comment}</Content>
             </BoxLeft>
             <BoxRight>
-              <Button variant={"delete"}>삭제</Button>
+              <Button variant={"delete"} clickHandler={handleDeleteComment}>
+                삭제
+              </Button>
             </BoxRight>
           </CommentBox>
         );
