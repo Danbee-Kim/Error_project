@@ -9,16 +9,22 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 function DetailBox() {
-  const param= useParams()
-  const lists =useSelector((state)=>state.todos.todos)
-  const list= lists.find((list)=>list.id===parseInt(param.id))
- 
-  const [isEdit,setIsEdit]=useState(false);
+  const param = useParams();
+  const lists = useSelector((state) => state.todos.todos);
+  const list = lists.find((list) => list.id === parseInt(param.id));
+
+  const [isEdit, setIsEdit] = useState(false);
+  console.log(isEdit);
   return (
     <React.Fragment>
       <Header />
       <DetailContainer>
-        {isEdit? <DetailEditor list={list}/>:<DetailViewer list={list}setIsEdit={setIsEdit} isEdit={isEdit}/>}  
+        {/* <DetailViewer list={list} setIsEdit={setIsEdit}/> */}
+        {isEdit ? (
+          <DetailEditor list={list} setIsEdit={() => setIsEdit(!isEdit)} />
+        ) : (
+          <DetailViewer list={list} setIsEdit={() => setIsEdit(!isEdit)} />
+        )}
         <CommentList />
       </DetailContainer>
     </React.Fragment>
@@ -35,4 +41,3 @@ const DetailContainer = styled.div`
   border-radius: 10px;
   box-shadow: 5px 5px 5px #eee;
 `;
-

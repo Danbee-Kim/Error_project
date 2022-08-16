@@ -31,7 +31,8 @@ function Login() {
       console.log(response)
       setRefreshTokenToCookie(response.headers.authorization);
       
-      (alert(response.data)).then(()=>(navigate("/")));
+      alert(response.data)
+      navigate("/");
     } catch (error) {
       alert(error)
     }

@@ -1,23 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getRefreshToken } from "actions/Cookie";
 import axios from "axios";
 
 const initialState = {
   todos: [],
 };
-
+console.log(getRefreshToken());
 export const __postTodos = createAsyncThunk(
   "todos/postTodos",
   async (payload, thunkAPI) => {
     console.log(payload, "payload!!!!!!!!!!!!!!!!!!");
     try {
+      console.log(payload);
       const data = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/articles`,
-        payload
-        // {
-        //   title: payload.title,
-        //   content:payload.desc
-        // }
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles`,
+        payload,
+        {
+          headers: {
+            Authorization: getRefreshToken(),
+          },
+        }
       );
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -30,7 +34,22 @@ export const __getTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        `${process.env.REACT_SERVER_BASE_URL}/api/articles`
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles`
+      );
+
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __getTodo = createAsyncThunk(
+  "todos/getTodos",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles`
       );
 
       return thunkAPI.fulfillWithValue(data.data);
@@ -45,9 +64,14 @@ export const __updateTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios.patch(
-        `${process.env.REACT_APP_BASE_URL}/api/articles/${payload.id}`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles/${payload.id}`,
         {
           content: payload.content,
+        },
+        {
+          headers: {
+            Authorization: getRefreshToken(),
+          },
         }
       );
       return thunkAPI.fulfillWithValue(payload);
@@ -62,8 +86,11 @@ export const __deleteTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `${process.env.REACT_SERVER_BASE_URL}/api/articles/${payload}`,
-        payload
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles/${payload}`,
+        payload,
+        {
+          Authorization: getRefreshToken(),
+        }
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -105,6 +132,7 @@ const todosSlice = createSlice({
       state.isLoading = true;
     },
     [__updateTodos.fulfilled]: (state, { payload }) => {
+      console.log(payload);
       state.isLoading = false;
       state.todos = state.todos.map((todo) =>
         todo.id === payload.id ? { ...todo, content: payload.content } : todo

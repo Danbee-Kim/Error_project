@@ -2,7 +2,11 @@ import React from 'react'
 import styled from "styled-components";
 import Button from './elements/Button';
 
-function DetailViewer({setIsEdit,isEdit,list}) {
+function DetailViewer({setIsEdit,list}) {
+    const onClickHandler=()=>{
+      setIsEdit()
+    }
+    console.log(list)
   return (
     <div>
       <DetailHeader>
@@ -13,7 +17,7 @@ function DetailViewer({setIsEdit,isEdit,list}) {
           </HeaderRight>
         </DetailHeader>
         <DetailBody>{list.content}</DetailBody>
-        <Button size="medium" clickHandler={setIsEdit(!isEdit)}>수정하기</Button>
+        <Button size="medium" clickHandler={onClickHandler}>수정하기</Button>
     </div>
   )
 }

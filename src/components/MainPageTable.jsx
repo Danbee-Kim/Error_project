@@ -8,7 +8,7 @@ import Button from "./elements/Button";
 function MainPageTable() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos.todos);
+  const {todos} = useSelector((state) => state.todos);
 
   const onSubmitHandler = (id) => {
     // dispatch(deleteTodo(id));
