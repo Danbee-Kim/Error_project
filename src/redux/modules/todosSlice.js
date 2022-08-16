@@ -32,6 +32,7 @@ export const __getTodos = createAsyncThunk(
       const data = await axios.get(
         `${process.env.REACT_SERVER_BASE_URL}/api/articles`
       );
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
