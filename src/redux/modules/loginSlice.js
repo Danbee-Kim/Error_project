@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setRefreshTokenToCookie, getRefreshToken } from "../../actions/Cookie";
-const { REACT_APP_SERVER_BASE_URL } = process.env;
 const initialState = {
-  response: [],
+  response: "",
 };
 
 export const __postInfo = createAsyncThunk(
   "postInfo",
   async (payload, thunkAPI) => {
     try {
+      console.log(payload);
       const response = await axios.post(
-        `${REACT_APP_SERVER_BASE_URL}/signup`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/signup`,
         payload
       );
       return thunkAPI.fulfillWithValue(response.data);
@@ -26,7 +26,7 @@ export const __postToken = createAsyncThunk(
     try {
       const refresh_token = getRefreshToken();
       const response = await axios.post(
-        `${REACT_APP_SERVER_BASE_URL}/test`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/test`,
         "",
         {
           headers: {
@@ -48,7 +48,7 @@ export const __postLogin = createAsyncThunk(
     try {
       console.log(payload);
       const response = await axios.post(
-        `${REACT_APP_SERVER_BASE_URL}/login`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/login`,
         payload
       );
       const token = response.headers.authorization;
@@ -59,21 +59,21 @@ export const __postLogin = createAsyncThunk(
     }
   }
 );
-export const __postCheckId = createAsyncThunk(
-  "postCheckId",
-  async (payload, thunkAPI) => {
-    try {
-      console.log(payload);
-      const response = await axios.post(
-        `${REACT_APP_SERVER_BASE_URL}/signup/check`,
-        payload
-      );
-      return thunkAPI.fulfillWithValue(response.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+// export const __postCheckId = createAsyncThunk(
+//   "postCheckId",
+//   async (payload, thunkAPI) => {
+//     try {
+//       console.log(payload);
+//       const response = await axios.post(
+//         `${process.env.REACT_APP_SERVER_BASE_URL}/signup/check`,
+//         payload
+//       );
+//       return thunkAPI.fulfillWithValue(response.data);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
 
 export const loginSlice = createSlice({
   name: "loginSlice",
@@ -85,7 +85,8 @@ export const loginSlice = createSlice({
     },
     [__postInfo.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.response = [...state, action.payload];
+      console.log(action.payload);
+      state.response = action.payload;
     },
     [__postInfo.rejected]: (state, action) => {
       state.isLoading = false;
@@ -96,20 +97,10 @@ export const loginSlice = createSlice({
     },
     [__postLogin.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      console.log(action);
+      state.reponse = action.payload;
     },
     [__postLogin.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    [__postCheckId.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [__postCheckId.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.response = [...state, action.payload];
-    },
-    [__postCheckId.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

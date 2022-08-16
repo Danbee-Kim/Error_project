@@ -1,14 +1,18 @@
-import React from "react";
+import React,{useEffect} from "react";
 import styled from "styled-components";
 import Logo from "../src_assets/logo.png";
-import {logout} from "../actions/Cookie"
+import {getRefreshToken, logout} from "../actions/Cookie"
+import { useDispatch } from "react-redux";
 
 function Header() {
+  const dispatch=useDispatch();
   const onClickDelete=()=>{
     logout()
     window.location.replace("/login");
   }
-  
+  useEffect(() => {
+    getRefreshToken()
+  }, []);
 
   return (
     <HeaderWrap>
@@ -21,6 +25,7 @@ function Header() {
     </HeaderWrap>
   );
 }
+
 
 export default Header;
 const HeaderWrap = styled.div`

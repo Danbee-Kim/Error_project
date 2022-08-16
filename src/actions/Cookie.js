@@ -7,11 +7,11 @@ export function setRefreshTokenToCookie(token) {
     path: "/login",
     expires: new Date(Date.now() + 2592000),
   });
-  console.log(cookies.get("Authorization"));
 }
 
 export function getRefreshToken() {
   cookies.get("Authorization");
+  console.log(cookies.get("Authorization"));
 }
 
 export function logout() {

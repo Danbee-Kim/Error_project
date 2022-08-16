@@ -8,16 +8,9 @@ const initialState = {
 export const __getTodos = createAsyncThunk(
   "todos/getTodos",
   async (payload, thunkAPI) => {
-    // let token = localStorage.getItem("token");
-    // console.log("token!!!!:", token);
     try {
       const data = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/article`
-        // {
-        //   headers: {
-        //     token: token,
-        //   },
-        // }
+        `${process.env.REACT_SERVER_BASE_URL}/api/articles`
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -32,7 +25,7 @@ export const __postTodos = createAsyncThunk(
     console.log(payload, "payload!!!!!!!!!!!!!!!!!!");
     try {
       const data = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/article`,
+        `${process.env.REACT_SERVER_BASE_URL}/api/articles`,
         payload
         // {
         //   title: payload.title,
@@ -51,7 +44,7 @@ export const __deleteTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/api/articles/${payload}`,
+        `${process.env.REACT_SERVER_BASE_URL}/api/articles/${payload}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);

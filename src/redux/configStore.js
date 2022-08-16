@@ -1,5 +1,5 @@
-import todos from "./modules/loginSlice";
-import login from "./modules/todosSlice";
+import todos from "./modules/todosSlice";
+import login from "./modules/loginSlice";
 
 import { configureStore } from "@reduxjs/toolkit";
 
