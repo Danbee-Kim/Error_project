@@ -11,6 +11,7 @@ const Input = ({
   minLength,
   maxLength,
   type,
+  autoFocus,
 }) => {
   return (
     <FormInputContainer>
@@ -25,6 +26,7 @@ const Input = ({
         minLength={minLength}
         maxLength={maxLength}
         type={type}
+        autoFocus={autoFocus}
       />
     </FormInputContainer>
   );

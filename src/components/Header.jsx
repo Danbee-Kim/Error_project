@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import Logo from "../src_assets/logo.png";
-
+import {logout} from "../actions/Cookie"
 
 function Header() {
+  const onClickDelete=()=>{
+    logout()
+    window.location.replace("/login");
+  }
+  
 
   return (
     <HeaderWrap>
@@ -11,7 +16,7 @@ function Header() {
         <a href="/"><HeaderLogo src={Logo} alt="logo" /></a>
       </HeaderContainer>
       <HeaderTitle>
-        <div>로그아웃</div>
+        <HeaderLogout onClick={onClickDelete}>로그아웃</HeaderLogout>
       </HeaderTitle>
     </HeaderWrap>
   );
@@ -35,5 +40,9 @@ const HeaderTitle = styled.div`
   display: flex;
   justify-content: right;
   gap: 30px;
-  /* height: 200px; */
+  
+`;
+const HeaderLogout = styled.div`
+  cursor: pointer;
+  
 `;

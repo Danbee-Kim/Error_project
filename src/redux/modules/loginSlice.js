@@ -1,28 +1,58 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { setRefreshTokenToCookie, getRefreshToken } from "../../actions/Cookie";
+const { REACT_APP_SERVER_BASE_URL } = process.env;
 const initialState = {
-  Info: [],
-  isDone: false,
-  error: null,
+  response: [],
 };
 
 export const __postInfo = createAsyncThunk(
   "postInfo",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.post("http://api/signup", payload);
+      const response = await axios.post(
+        `${REACT_APP_SERVER_BASE_URL}/signup`,
+        payload
+      );
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-export const __postLogin = createAsyncThunk(
-  "postInfo",
+export const __postToken = createAsyncThunk(
+  "postToken",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.post("http://api/login", payload);
+      const refresh_token = getRefreshToken();
+      const response = await axios.post(
+        `${REACT_APP_SERVER_BASE_URL}/test`,
+        "",
+        {
+          headers: {
+            Authorization: refresh_token,
+          },
+        }
+      );
+      console.log(response);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __postLogin = createAsyncThunk(
+  "postLogin",
+  async (payload, thunkAPI) => {
+    try {
+      console.log(payload);
+      const response = await axios.post(
+        `${REACT_APP_SERVER_BASE_URL}/login`,
+        payload
+      );
+      const token = response.headers.authorization;
+      setRefreshTokenToCookie(token);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -30,10 +60,14 @@ export const __postLogin = createAsyncThunk(
   }
 );
 export const __postCheckId = createAsyncThunk(
-  "postInfo",
+  "postCheckId",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.post("http://api/signup/check", payload);
+      console.log(payload);
+      const response = await axios.post(
+        `${REACT_APP_SERVER_BASE_URL}/signup/check`,
+        payload
+      );
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -50,11 +84,32 @@ export const loginSlice = createSlice({
       state.isLoading = true;
     },
     [__postInfo.fulfilled]: (state, action) => {
-      console.log(action);
+      state.isLoading = false;
+      state.response = [...state, action.payload];
+    },
+    [__postInfo.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__postLogin.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [__postLogin.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.comments = action.payload;
     },
-    [__postInfo.rejected]: (state, action) => {
+    [__postLogin.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__postCheckId.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [__postCheckId.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.response = [...state, action.payload];
+    },
+    [__postCheckId.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
