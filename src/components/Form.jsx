@@ -26,10 +26,12 @@ function Form() {
   };
 
   const onSubmitHandler = () => {
+    dispatch(__postToken());
     dispatch(__postTodos(post));
-    dispatch(__postToken())
     navigate("/");
   };
+
+  console.log(post);
 
   return (
     <form onSubmit={onSubmitHandler}>
@@ -49,7 +51,9 @@ function Form() {
         />
       </InputArea>
       <BtnArea>
-        <Button size={"medium"}>작성완료</Button>
+        <Button size={"medium"} type="submit">
+          작성완료
+        </Button>
       </BtnArea>
     </form>
   );

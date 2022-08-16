@@ -32,7 +32,9 @@ function DetailEditor({ list }) {
           />
         </InputArea>
         <BtnArea>
-          <Button size={"medium"}>작성완료</Button>
+          <Button size={"medium"} type="submit">
+            작성완료
+          </Button>
         </BtnArea>
       </form>
     </div>

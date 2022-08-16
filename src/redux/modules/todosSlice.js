@@ -11,7 +11,7 @@ export const __postTodos = createAsyncThunk(
     console.log(payload, "payload!!!!!!!!!!!!!!!!!!");
     try {
       const data = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/articles`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles`,
         payload
         // {
         //   title: payload.title,
@@ -30,7 +30,7 @@ export const __getTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        `${process.env.REACT_SERVER_BASE_URL}/api/articles`
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles`
       );
 
       return thunkAPI.fulfillWithValue(data.data);
@@ -45,7 +45,7 @@ export const __updateTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios.patch(
-        `${process.env.REACT_APP_BASE_URL}/api/articles/${payload.id}`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles/${payload.id}`,
         {
           content: payload.content,
         }
@@ -62,7 +62,7 @@ export const __deleteTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `${process.env.REACT_SERVER_BASE_URL}/api/articles/${payload}`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/articles/${payload}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
