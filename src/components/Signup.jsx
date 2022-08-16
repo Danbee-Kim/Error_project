@@ -63,7 +63,9 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(idChecked){
-    dispatch(__postInfo({username:newId,password:newPass}))}
+    dispatch(__postInfo({username:newId,password:newPass}))
+    navigate("/login")
+  }
   };
   const onClickHandler = () => {
     navigate("/login");

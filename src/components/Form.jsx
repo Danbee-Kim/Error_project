@@ -12,9 +12,11 @@ function Form() {
 
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.todos.todos);
-  const [post, setPost] = useState({});
-  //post.title, post.desc
+  const [post, setPost] = useState({
+    
+  });
 
+ const {title, content}=post
   console.log(posts);
 
   const changeHandler = (e) => {
@@ -36,28 +38,28 @@ function Form() {
   console.log(post);
 
   return (
-    <div onSubmit={onSubmitHandler}>
+    <form onSubmit={onSubmitHandler}>
       <InputArea>
         <h3>제목</h3>
         <Input
           type="text"
           name="title"
           changeHandler={changeHandler}
-          value={post.title}
+          value={title}
         />
         <h3>내용</h3>
         <TodoTextarea
           name="content"
-          defaultValue={post.content}
+          value={content}
           changeHandler={changeHandler}
         />
       </InputArea>
       <BtnArea>
-        <Button clickHandler={() => onSubmitHandler()} size={"medium"}>
+        <Button size={"medium"}>
           작성완료
         </Button>
       </BtnArea>
-    </div>
+    </form>
   );
 }
 

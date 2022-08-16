@@ -1,5 +1,5 @@
-import todos from "./redux/modules/todosSlice";
-import login from "./redux/modules/loginSlice";
+import todos from "./modules/loginSlice";
+import login from "./modules/todosSlice";
 
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -8,7 +8,6 @@ const store = configureStore({
     todos: todos,
     login: login,
   },
-  
 });
 
 export default store;

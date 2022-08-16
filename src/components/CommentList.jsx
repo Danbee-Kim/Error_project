@@ -1,31 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "components/elements/Button";
+import { useSelector } from "react-redux";
 
 function CommentList() {
-  let result = [
-    {
-      id: 0,
-      comment: "나쁜 에러네요",
-      username: "배지",
-      date: "2022.8.12",
-    },
-    {
-      id: 1,
-      comment: "정말 나쁜 에러네요",
-      username: "단비",
-      date: "2022.8.12",
-    },
-    {
-      id: 2,
-      comment: "극혐이네요~",
-      username: "배지",
-      date: "2022.8.12",
-    },
-  ];
+  const {comments}=useSelector((state)=>state.comments);
   return (
     <CommentListContainer>
-      {result.map((comment) => {
+      {comments.map((comment) => {
         return (
           <CommentBox>
             <BoxLeft>
@@ -34,12 +16,11 @@ function CommentList() {
               <Content>{comment.comment}</Content>
             </BoxLeft>
             <BoxRight>
-              <Button size={"small"}>삭제</Button>
+              <Button variant={"delete"}>삭제</Button>
             </BoxRight>
           </CommentBox>
         );
       })}
-      {""}
     </CommentListContainer>
   );
 }
