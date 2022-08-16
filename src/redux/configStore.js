@@ -1,6 +1,6 @@
-import todos from "../redux/modules/todosSlice";
-import login from "../redux/modules/loginSlice";
-import logger from "redux-logger";
+import todos from "./redux/modules/todosSlice";
+import login from "./redux/modules/loginSlice";
+
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
@@ -8,7 +8,7 @@ const store = configureStore({
     todos: todos,
     login: login,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  
 });
 
 export default store;

@@ -103,7 +103,7 @@ const BtnArea = styled.div`
 `;
 
 const Table = styled.table`
-  width: 1280px;
+  width: 90vw;
   margin: auto;
   border-top: 1px solid #444444;
   border-collapse: collapse;

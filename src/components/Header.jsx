@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import Logo from "../src_assets/logo.png";
 
+
 function Header() {
+
   return (
     <HeaderWrap>
       <HeaderContainer>
-        <HeaderLogo src={Logo} alt="logo" />
+        <a href="/"><HeaderLogo src={Logo} alt="logo" /></a>
       </HeaderContainer>
       <HeaderTitle>
         <div>로그아웃</div>
