@@ -3,7 +3,11 @@ import Input from "./elements/Input";
 import styled from "styled-components";
 import BigLogo from "../src_assets/biglogo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { __postCheckId, __postInfo, __postToken } from "redux/modules/loginSlice";
+import {
+  __postCheckId,
+  __postInfo,
+  __postToken,
+} from "redux/modules/loginSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -50,22 +54,26 @@ function Signup() {
         : setPassCheck("");
   };
 
-  const checkDone= useSelector((state)=>state.response.ok)
-  const [idChecked,setIdChecked]=useState("false")
+  const checkDone = useSelector((state) => state.response);
+  const [idChecked, setIdChecked] = useState("false");
   const onClickCheck = () => {
-    if (!checkDone){return alert("이미 사용 중인 아이디입니다")}
+    if (!checkDone) {
+      return alert("이미 사용 중인 아이디입니다");
+    }
     // dispatch(__postCheckId({username:newId}))
     // dispatch(__postToken())
-    if(checkDone){setIdChecked(true)}
-    navigate("/")
+    if (checkDone) {
+      setIdChecked(true);
+    }
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(idChecked){
-    dispatch(__postInfo({username:newId,password:newPass}))
-    navigate("/login")
-  }
+    if (idChecked) {
+      dispatch(__postInfo({ username: newId, password: newPass }));
+      navigate("/login");
+    }
   };
   const onClickHandler = () => {
     navigate("/login");
