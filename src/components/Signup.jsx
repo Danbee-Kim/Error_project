@@ -4,6 +4,7 @@ import styled from "styled-components";
 import BigLogo from "../src_assets/biglogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { __postCheckId, __postInfo,  } from "redux/modules/loginSlice";
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -24,7 +25,6 @@ function Signup() {
   const [idVali, setIdVali] = useState("");
   const [passVali, setPassVali] = useState("");
   const [passCheck, setPassCheck] = useState("");
-
 
   const onChangeHandler = (e) => {
     const { value, name } = e.target;
@@ -52,7 +52,7 @@ function Signup() {
         ? setPassCheck("비밀번호가 불일치합니다")
         : setPassCheck("");
   };
-  
+ 
   const [idChecked,setIdChecked]=useState(false)
   const onClickCheck = async() => {
     if (newId.trim()===""){return alert("아이디를 입력해주세요!")}
@@ -102,9 +102,11 @@ function Signup() {
               changeHandler={onChangeHandler}
               maxLength="10"
             />
-            <Button clickHandler={onClickCheck} 
-             size="mini"
-            disabled={idVali ? true: false}
+
+            <Button
+              clickHandler={onClickCheck}
+              size="mini"
+              disabled={idVali ? true : false}
             >
               중복확인
             </Button>
