@@ -8,7 +8,7 @@ function Header() {
   const dispatch=useDispatch();
   const onClickDelete=()=>{
     logout()
-    window.location.replace("/");
+    window.location.replace("/main");
   }
   useEffect(() => {
     getRefreshToken()
