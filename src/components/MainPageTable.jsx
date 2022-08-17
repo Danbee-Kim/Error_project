@@ -11,34 +11,10 @@ function MainPageTable() {
   const {todos} = useSelector((state) => state.todos);
 
   const onSubmitHandler = (id) => {
-    // dispatch(deleteTodo(id));
     dispatch(__deleteTodos(id));
   };
 
-  // let data = [
-  //   {
-  //     id: 0,
-  //     created_date: "2022.08.12",
-  //     username: "태민",
-  //     title: "자바 오류",
-  //     isDone: false,
-  //   },
-  //   {
-  //     id: 1,
-  //     created_date: "2022.08.12",
-  //     username: "단비",
-  //     title: "리엑트 오류",
-  //     isDone: true,
-  //   },
-  //   {
-  //     id: 2,
-  //     created_date: "2022.08.12",
-  //     username: "명순",
-  //     title: "스프링 배열 오류",
-  //     isDone: false,
-  //   },
-  // ];
-
+ 
   useEffect(() => {
     dispatch(__getTodos());
   }, []);

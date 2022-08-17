@@ -7,7 +7,6 @@ import TodoTextarea from "./elements/Input";
 import { __updateTodos } from "redux/modules/todosSlice";
 
 function DetailEditor({ list, setIsEdit}) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [content, setContent] = useState(list.content);
 
