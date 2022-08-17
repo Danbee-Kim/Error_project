@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { __getTodos, __deleteTodos } from "../../redux/modules/todosSlice";
+import { __readTodos, __deleteTodos } from "../../redux/modules/todosSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../elements/Button";
 
@@ -15,7 +15,7 @@ function MainPageTable() {
   };
 
   useEffect(() => {
-    dispatch(__getTodos());
+    dispatch(__readTodos());
   }, [dispatch]);
 
   return (

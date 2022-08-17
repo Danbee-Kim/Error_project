@@ -4,12 +4,15 @@ import axios from "axios";
 
 const initialState = {
   todos: [],
+  isLoading: false,
+  error: null,
 };
-console.log(getRefreshToken());
-export const __postTodos = createAsyncThunk(
-  "todos/postTodos",
+// console.log(getRefreshToken());
+
+export const __createTodos = createAsyncThunk(
+  "createTodos",
   async (payload, thunkAPI) => {
-    console.log(payload, "payload!!!!!!!!!!!!!!!!!!");
+    // console.log(payload, "payload!!!!!!!!!!");
     try {
       console.log(payload);
       const data = await axios.post(
@@ -21,7 +24,6 @@ export const __postTodos = createAsyncThunk(
           },
         }
       );
-
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -29,14 +31,13 @@ export const __postTodos = createAsyncThunk(
   }
 );
 
-export const __getTodos = createAsyncThunk(
-  "todos/getTodos",
+export const __readTodos = createAsyncThunk(
+  "readTodos",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
         `${process.env.REACT_APP_SERVER_BASE_URL}/articles`
       );
-
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -44,14 +45,13 @@ export const __getTodos = createAsyncThunk(
   }
 );
 
-export const __getTodo = createAsyncThunk(
-  "todos/getTodos",
+export const __readTodo = createAsyncThunk(
+  "readTodo",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
         `${process.env.REACT_APP_SERVER_BASE_URL}/articles`
       );
-
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -60,7 +60,7 @@ export const __getTodo = createAsyncThunk(
 );
 
 export const __updateTodos = createAsyncThunk(
-  "todos/updateTodos",
+  "updateTodos",
   async (payload, thunkAPI) => {
     try {
       await axios.patch(
@@ -82,7 +82,7 @@ export const __updateTodos = createAsyncThunk(
 );
 
 export const __deleteTodos = createAsyncThunk(
-  "todos/deleteTodos",
+  "deleteTodos",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
@@ -106,26 +106,26 @@ const todosSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__postTodos.pending]: (state) => {
+    [__createTodos.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
-    [__postTodos.fulfilled]: (state, action) => {
+    [__createTodos.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       state.todos = [...state.todos, action.payload];
     },
-    [__postTodos.rejected]: (state, action) => {
+    [__createTodos.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
 
-    [__getTodos.pending]: (state) => {
+    [__readTodos.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
-    [__getTodos.fulfilled]: (state, action) => {
+    [__readTodos.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       state.todos = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
-    [__getTodos.rejected]: (state, action) => {
+    [__readTodos.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },

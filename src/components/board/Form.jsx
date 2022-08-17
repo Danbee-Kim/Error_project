@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { __postTodos } from "../../redux/modules/todosSlice";
+import { __createTodos } from "../../redux/modules/todosSlice";
 import { useNavigate } from "react-router-dom";
 import Button from "../elements/Button";
 import TodoTextarea from "../elements/Textarea";
@@ -29,7 +29,7 @@ function Form() {
 
   const onSubmitHandler = () => {
     // dispatch(__postToken());
-    dispatch(__postTodos(post));
+    dispatch(__createTodos(post));
     navigate("/main");
   };
 
@@ -64,7 +64,7 @@ function Form() {
 export default Form;
 
 const InputArea = styled.div`
-  width: 1280px;
+  width: 1000px;
   margin: auto;
 `;
 

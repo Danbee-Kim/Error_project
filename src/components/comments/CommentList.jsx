@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // import { __deleteComments } from "redux/modules/commentsSlice";
-import { __getCommnetsByTodoId } from "redux/modules/commentsSlice";
+import { __readComments } from "redux/modules/commentsSlice";
 // import Input from "./elements/Input";
 // import Button from "components/elements/Button";
 import Comment from "./Comment";
@@ -18,7 +18,7 @@ function CommentList() {
   console.log("data!!!!!!!!!!!!!", data);
   useEffect(() => {
     if (isShow) {
-      dispatch(__getCommnetsByTodoId());
+      dispatch(__readComments());
     }
   }, [dispatch, isShow]);
 
@@ -33,9 +33,9 @@ function CommentList() {
       </StToggleContainer>
       <AddCommentForm />
       <StCommentList>
-        {/* {data.map((comment) => (
+        {data.map((comment) => (
           <Comment key={comment.id} comment={comment.comment} />
-        ))} */}
+        ))}
       </StCommentList>
     </StContainer>
   );
@@ -45,7 +45,7 @@ function CommentList() {
 
   // useEffect(() => {
   //   if (isShow) {
-  //     dispatch(__getCommnetsByTodoId(id));
+  //     dispatch(__readComments(id));
   //   }
   // }, [dispatch, id, isShow]);
 
