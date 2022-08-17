@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { __updateTodos } from "redux/modules/todosSlice";
 import Button from "components/elements/Button";
 import TodoTextarea from "../elements/Input";
 
 function DetailEditor({ list, setIsEdit }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [content, setContent] = useState(list.content);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(content);
-    console.log(list);
     dispatch(__updateTodos({ id: list.id, content: content }));
     setIsEdit();
   };

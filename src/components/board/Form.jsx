@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { __createTodos } from "../../redux/modules/todosSlice";
 import { useNavigate } from "react-router-dom";
 import Button from "../elements/Button";
@@ -32,8 +32,6 @@ function Form() {
     dispatch(__createTodos(post));
     navigate("/main");
   };
-
-  console.log(post);
 
   return (
     <form onSubmit={onSubmitHandler}>

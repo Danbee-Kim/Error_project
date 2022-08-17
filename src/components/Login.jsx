@@ -26,7 +26,7 @@ function Login() {
         `${process.env.REACT_APP_SERVER_BASE_URL}/login`,
         { username: newId, password: newPass }
       );
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         setRefreshTokenToCookie(response.headers.authorization);
         alert(response.data);
