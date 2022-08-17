@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 import Input from "components/elements/Input";
 import Button from "components/elements/Button";
 import { __createComments } from "redux/modules/commentsSlice";
 
 const AddCommentForm = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
 
   const [comment, setComment] = useState({
     username: "",
@@ -18,15 +16,15 @@ const AddCommentForm = () => {
   const onAddCommentButtonHandler = (e) => {
     e.preventDefault();
     // console.log("aaa");
-    dispatch(__createComments({ comment }));
+    dispatch(__createComments(comment));
     setComment({
       username: "",
       content: "",
     });
   };
 
-  const onChangeInputHandler = (event) => {
-    const { name, value } = event.target;
+  const onChangeInputHandler = (e) => {
+    const { name, value } = e.target;
     setComment({
       ...comment,
       [name]: value,

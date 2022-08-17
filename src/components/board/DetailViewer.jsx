@@ -1,11 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { __deleteTodos } from "redux/modules/todosSlice";
+import { useDispatch } from "react-redux";
 import Button from "components/elements/Button";
 import Input from "components/elements/Input";
 
 function DetailViewer({ setIsEdit, list }) {
-  const onClickHandler = () => {
+  const dispatch = useDispatch();
+
+  const onClickEditHandler = () => {
     setIsEdit();
+  };
+
+  const onClickDeleteHandler = (id) => {
+    dispatch(__deleteTodos(id));
   };
 
   return (
@@ -20,8 +28,11 @@ function DetailViewer({ setIsEdit, list }) {
       <DetailBody>{list.content}</DetailBody>
       <Input type="checkbox" />
       <BtnArea>
-        <Button size="medium" clickHandler={onClickHandler}>
+        <Button size="medium" clickHandler={onClickEditHandler}>
           수정하기
+        </Button>
+        <Button size="medium" clickHandler={onClickDeleteHandler}>
+          삭제하기
         </Button>
       </BtnArea>
     </div>

@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+
 // console.log(getRefreshToken());
 
 export const __createTodos = createAsyncThunk(
@@ -134,7 +135,7 @@ const todosSlice = createSlice({
       state.isLoading = true;
     },
     [__updateTodos.fulfilled]: (state, { payload }) => {
-      console.log(payload);
+      // console.log(payload);
       state.isLoading = false;
       state.todos = state.todos.map((todo) =>
         todo.id === payload.id ? { ...todo, content: payload.content } : todo

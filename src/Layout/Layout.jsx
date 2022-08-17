@@ -1,12 +1,7 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 const Layout = (props) => {
-  return (
-    <LayoutContainer>
-      {props.children}
-    </LayoutContainer>
-  );
+  return <LayoutContainer>{props.children}</LayoutContainer>;
 };
 
 const LayoutContainer = styled.div`

@@ -2,25 +2,21 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { __deleteComments } from "redux/modules/commentsSlice";
 import { __readComments } from "redux/modules/commentsSlice";
-// import Input from "./elements/Input";
-// import Button from "components/elements/Button";
 import Comment from "./Comment";
 import AddCommentForm from "./AddCommentForm";
 
 function CommentList() {
-  // const { id } = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const [isShow, setisShow] = useState(false);
-  const data = useSelector((state) => state.comments);
+  const data = useSelector((state) => state.comments.comments);
 
-  console.log("data!!!!!!!!!!!!!", data);
   useEffect(() => {
     if (isShow) {
       dispatch(__readComments());
     }
-  }, [dispatch, isShow]);
+  }, []);
 
   return (
     <StContainer isShow={isShow}>
@@ -34,7 +30,7 @@ function CommentList() {
       <AddCommentForm />
       <StCommentList>
         {data.map((comment) => (
-          <Comment key={comment.id} comment={comment.comment} />
+          <Comment key={comment.id} comment={comment} />
         ))}
       </StCommentList>
     </StContainer>

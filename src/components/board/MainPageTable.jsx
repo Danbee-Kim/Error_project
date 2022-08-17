@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { __readTodos, __deleteTodos } from "../../redux/modules/todosSlice";
+import { __readTodos } from "../../redux/modules/todosSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../elements/Button";
 
@@ -9,10 +9,6 @@ function MainPageTable() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
-
-  const onSubmitHandler = (id) => {
-    dispatch(__deleteTodos(id));
-  };
 
   useEffect(() => {
     dispatch(__readTodos());
@@ -34,7 +30,6 @@ function MainPageTable() {
                 <th>제목</th>
                 <th>작성자</th>
                 <th>해결여부</th>
-                <th></th>
               </tr>
             </TableHead>
             <TableBody>
@@ -48,16 +43,6 @@ function MainPageTable() {
                     <td>{article.title}</td>
                     <td>{article.username}</td>
                     <td>{article.isDone ? "해결완료" : "해결중"}</td>
-                    <td>
-                      <Button
-                        clickHandler={(e) => {
-                          e.stopPropagation();
-                          onSubmitHandler(article.id);
-                        }}
-                      >
-                        삭제하기
-                      </Button>
-                    </td>
                   </tr>
                 );
               })}
@@ -65,8 +50,6 @@ function MainPageTable() {
           </Table>
         </MainContainer>
       </div>
-
-      {/* 글 레이아웃 Container */}
     </React.Fragment>
   );
 }

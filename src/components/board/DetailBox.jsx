@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import CommentList from "components/comments/CommentList";
 import Header from "components/Header";
+import CommentList from "components/comments/CommentList";
 import DetailViewer from "./DetailViewer";
 import DetailEditor from "./DetailEditor";
 
@@ -12,9 +12,8 @@ function DetailBox() {
   const param = useParams();
   const lists = useSelector((state) => state.todos.todos);
   const list = lists.find((list) => list.id === parseInt(param.id));
-
   const [isEdit, setIsEdit] = useState(false);
-  console.log(isEdit);
+
   return (
     <React.Fragment>
       <Header />
