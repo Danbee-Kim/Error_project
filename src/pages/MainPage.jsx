@@ -1,5 +1,5 @@
 import React from "react";
-import MainPageTable from "components/MainPageTable";
+import MainPageTable from "components/board/MainPageTable";
 import Header from "components/Header";
 
 function MainPage() {

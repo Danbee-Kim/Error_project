@@ -1,9 +1,9 @@
-import styled from "styled-components";
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { __getTodos, __deleteTodos } from "../redux/modules/todosSlice";
+import { __getTodos, __deleteTodos } from "../../redux/modules/todosSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "./elements/Button";
+import Button from "../elements/Button";
 
 function MainPageTable() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function MainPageTable() {
 
   useEffect(() => {
     dispatch(__getTodos());
-  }, []);
+  }, [dispatch]);
 
   return (
     <React.Fragment>
@@ -49,9 +49,13 @@ function MainPageTable() {
                     <td>{article.username}</td>
                     <td>{article.isDone ? "해결완료" : "해결중"}</td>
                     <td>
-                      <Button clickHandler={() => onSubmitHandler(article.id)}>
+                      <Button
+                        clickHandler={(e) => {
+                          e.stopPropagation();
+                          onSubmitHandler(article.id);
+                        }}
+                      >
                         삭제하기
-                        {/* () => onDeleteTodo(article.id) */}
                       </Button>
                     </td>
                   </tr>

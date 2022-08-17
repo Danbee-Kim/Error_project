@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { __postTodos } from "../redux/modules/todosSlice";
+import { __postTodos } from "../../redux/modules/todosSlice";
 import { useNavigate } from "react-router-dom";
-import Button from "./elements/Button";
-import TodoTextarea from "./elements/Textarea";
-import Input from "./elements/Input";
+import Button from "../elements/Button";
+import TodoTextarea from "../elements/Textarea";
+import Input from "../elements/Input";
 import { __postToken } from "redux/modules/loginSlice";
 
 function Form() {
@@ -13,8 +13,8 @@ function Form() {
 
   const dispatch = useDispatch();
   const [post, setPost] = useState({
-    title:"",
-    content:""
+    title: "",
+    content: "",
   });
 
   const { title, content } = post;
@@ -32,6 +32,8 @@ function Form() {
     dispatch(__postTodos(post));
     navigate("/main");
   };
+
+  console.log(post);
 
   return (
     <form onSubmit={onSubmitHandler}>
@@ -51,7 +53,9 @@ function Form() {
         />
       </InputArea>
       <BtnArea>
-        <Button size={"medium"} type="submit">작성완료</Button>
+        <Button size={"medium"} type="submit">
+          작성완료
+        </Button>
       </BtnArea>
     </form>
   );

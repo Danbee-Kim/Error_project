@@ -49,29 +49,34 @@ function Signup() {
         : setPassCheck("");
   };
 
-//중복아이디 검사
-  const [idChecked,setIdChecked]=useState(false)
-  const onClickCheck = async() => {
-    if (newId.trim()===""){return alert("아이디를 입력해주세요!")}
-    try{
+  //중복아이디 검사
+  const [idChecked, setIdChecked] = useState(false);
+  const onClickCheck = async () => {
+    if (newId.trim() === "") {
+      return alert("아이디를 입력해주세요!");
+    }
+    try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_BASE_URL}/signup/check`,
-        {username:newId,password:newPass});
-        console.log("RESPONSE",response.data);
-        if (response.data) {setIdChecked(true) 
-          return alert("멋진 ID!")};
-          if(!response.data) {setIdChecked(false) 
-            return alert("중복되는 ID!")};    
-          }catch{
-          }
-          
-        }
+        { username: newId, password: newPass }
+      );
+      console.log("RESPONSE", response.data);
+      if (response.data) {
+        setIdChecked(true);
+        return alert("멋진 ID!");
+      }
+      if (!response.data) {
+        setIdChecked(false);
+        return alert("중복되는 ID!");
+      }
+    } catch {}
+  };
   //회원가입 정보
-  const loginInfo=async()=>{
-      try {
+  const loginInfo = async () => {
+    try {
       const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_BASE_URL}/signup`,
-      {username:newId,password:newPass}
+        `${process.env.REACT_APP_SERVER_BASE_URL}/signup`,
+        { username: newId, password: newPass }
       );
       if (response.data === true) {
         alert("회원가입 축하합니다!");
@@ -81,19 +86,20 @@ function Signup() {
       alert("올바른 정보를 입력해주세요!");
     }
   };
-  
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(newId.trim()===""||newPass.trim()===""||valiPass===""){
-      return alert("아이디랑 비밀번호를 입력해주세요!")
+    if (newId.trim() === "" || newPass.trim() === "" || valiPass === "") {
+      return alert("아이디랑 비밀번호를 입력해주세요!");
     }
-    if(!idChecked){return alert("아이디 중복확인을 해주세요!")}
-    if(idChecked){ loginInfo()
-  }
+    if (!idChecked) {
+      return alert("아이디 중복확인을 해주세요!");
+    }
+    if (idChecked) {
+      loginInfo();
+    }
   };
 
-  
   const onClickHandler = () => {
     navigate("/");
   };
@@ -164,10 +170,11 @@ function Signup() {
             <Button size="small" clickHandler={onClickHandler}>
               뒤로가기
             </Button>
-            <Button 
-            type="submit"
-            size="small" 
-            disabled={passVali ? true: false}>
+            <Button
+              type="submit"
+              size="small"
+              disabled={passVali ? true : false}
+            >
               회원가입
             </Button>
           </Setbtns>

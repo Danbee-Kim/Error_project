@@ -92,8 +92,10 @@ export const __deleteTodos = createAsyncThunk(
           Authorization: getRefreshToken(),
         }
       );
+      // console.log("data!!@@!!0", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
+      // console.log("error!!!", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
