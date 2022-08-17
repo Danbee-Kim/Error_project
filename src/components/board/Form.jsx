@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { __postTodos } from "../redux/modules/todosSlice";
+import { __postTodos } from "../../redux/modules/todosSlice";
 import { useNavigate } from "react-router-dom";
-import Button from "./elements/Button";
-import TodoTextarea from "./elements/Textarea";
-import Input from "./elements/Input";
+import Button from "../elements/Button";
+import TodoTextarea from "../elements/Textarea";
+import Input from "../elements/Input";
 import { __postToken } from "redux/modules/loginSlice";
 
 function Form() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.todos.todos);
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState({
+    title: "",
+    content: "",
+  });
 
   const { title, content } = post;
 
@@ -26,7 +28,7 @@ function Form() {
   };
 
   const onSubmitHandler = () => {
-    dispatch(__postToken());
+    // dispatch(__postToken());
     dispatch(__postTodos(post));
     navigate("/");
   };
@@ -41,12 +43,12 @@ function Form() {
           type="text"
           name="title"
           changeHandler={changeHandler}
-          value={title || ""}
+          value={title}
         />
         <h3>내용</h3>
         <TodoTextarea
           name="content"
-          value={content || ""}
+          value={content}
           changeHandler={changeHandler}
         />
       </InputArea>

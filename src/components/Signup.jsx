@@ -1,9 +1,9 @@
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { __postCheckId, __postInfo } from "redux/modules/loginSlice";
+import BigLogo from "../src_assets/biglogo.png";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
-import styled from "styled-components";
-import BigLogo from "../src_assets/biglogo.png";
-import { useDispatch, useSelector } from "react-redux";
-import { __postCheckId, __postInfo,  } from "redux/modules/loginSlice";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -52,33 +52,42 @@ function Signup() {
         ? setPassCheck("비밀번호가 불일치합니다")
         : setPassCheck("");
   };
- 
-  const [idChecked,setIdChecked]=useState(false)
-  const onClickCheck = async() => {
-    if (newId.trim()===""){return alert("아이디를 입력해주세요!")}
-    try{
+
+  const [idChecked, setIdChecked] = useState(false);
+  const onClickCheck = async () => {
+    if (newId.trim() === "") {
+      return alert("아이디를 입력해주세요!");
+    }
+    try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_BASE_URL}/signup/check`,
-        {username:newId});
-        console.log("RESPONSE",response.data);
-        if (response.data) {setIdChecked(true) 
-          return alert("멋진 ID!")};
-          if(!response.data) {setIdChecked(false) 
-            return alert("중복되는 ID!")};    
-          }catch{
-          }
-          
-        }
-   
+        { username: newId }
+      );
+      console.log("RESPONSE", response.data);
+      if (response.data) {
+        setIdChecked(true);
+        return alert("멋진 ID!");
+      }
+      if (!response.data) {
+        setIdChecked(false);
+        return alert("중복되는 ID!");
+      }
+    } catch {}
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(newId.trim()===""||newPass.trim()===""||valiPass===""){
-      return alert("아이디랑 비밀번호를 입력해주세요!")
+    if (newId.trim() === "" || newPass.trim() === "" || valiPass === "") {
+      return alert("아이디랑 비밀번호를 입력해주세요!");
     }
-    if(!idChecked){return alert("아이디 중복확인을 해주세요!")}
-    if(idChecked){
-    (dispatch(__postInfo({username:newId,password:newPass}))).then(()=>navigate("/login"))
-  }
+    if (!idChecked) {
+      return alert("아이디 중복확인을 해주세요!");
+    }
+    if (idChecked) {
+      dispatch(__postInfo({ username: newId, password: newPass })).then(() =>
+        navigate("/login")
+      );
+    }
   };
   const onClickHandler = () => {
     navigate("/login");
@@ -150,10 +159,11 @@ function Signup() {
             <Button size="small" clickHandler={onClickHandler}>
               뒤로가기
             </Button>
-            <Button 
-            type="submit"
-            size="small" 
-            disabled={passVali ? true: false}>
+            <Button
+              type="submit"
+              size="small"
+              disabled={passVali ? true : false}
+            >
               회원가입
             </Button>
           </Setbtns>

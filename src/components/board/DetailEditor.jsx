@@ -1,20 +1,22 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Button from "./elements/Button";
-import styled from "styled-components";
-import TodoTextarea from "./elements/Input";
 import { __updateTodos } from "redux/modules/todosSlice";
+import Button from "components/elements/Button";
+import TodoTextarea from "../elements/Input";
 
-function DetailEditor({ list }) {
+function DetailEditor({ list, setIsEdit }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [content, setContent] = useState(list.content);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(__updateTodos({ content }));
-    navigate("/detail");
+    console.log(content);
+    console.log(list);
+    dispatch(__updateTodos({ id: list.id, content: content }));
+    setIsEdit();
   };
   const onChangeHandler = (e) => {
     setContent(e.target.value);
@@ -24,7 +26,6 @@ function DetailEditor({ list }) {
       <form onSubmit={onSubmitHandler}>
         <InputArea>
           <h3>{list.title}</h3>
-          <h3>내용</h3>
           <TodoTextarea
             name="content"
             value={content}
@@ -32,7 +33,7 @@ function DetailEditor({ list }) {
           />
         </InputArea>
         <BtnArea>
-          <Button size={"medium"} type="submit">
+          <Button type="submit" size={"medium"}>
             작성완료
           </Button>
         </BtnArea>

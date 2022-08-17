@@ -4,14 +4,13 @@ const cookies = new Cookies();
 
 export function setRefreshTokenToCookie(token) {
   cookies.set("Authorization", token, {
-    path: "/login",
+    path: "/",
     expires: new Date(Date.now() + 2592000),
   });
 }
 
 export function getRefreshToken() {
-  cookies.get("Authorization");
-  console.log(cookies.get("Authorization"));
+  return cookies.get("Authorization");
 }
 
 export function logout() {

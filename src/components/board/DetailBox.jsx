@@ -1,12 +1,12 @@
 import React from "react";
-import CommentList from "components/CommentList";
-import Header from "components/Header";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import DetailViewer from "./DetailViewer";
-import DetailEditor from "./DetailEditor";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import CommentList from "components/comments/CommentList";
+import Header from "components/Header";
+import DetailViewer from "./DetailViewer";
+import DetailEditor from "./DetailEditor";
 
 function DetailBox() {
   const param = useParams();
@@ -14,15 +14,16 @@ function DetailBox() {
   const list = lists.find((list) => list.id === parseInt(param.id));
 
   const [isEdit, setIsEdit] = useState(false);
-
+  console.log(isEdit);
   return (
     <React.Fragment>
       <Header />
       <DetailContainer>
+        {/* <DetailViewer list={list} setIsEdit={setIsEdit}/> */}
         {isEdit ? (
-          <DetailEditor list={list} />
+          <DetailEditor list={list} setIsEdit={() => setIsEdit(!isEdit)} />
         ) : (
-          <DetailViewer list={list} setIsEdit={setIsEdit} isEdit={isEdit} />
+          <DetailViewer list={list} setIsEdit={() => setIsEdit(!isEdit)} />
         )}
         <CommentList />
       </DetailContainer>
