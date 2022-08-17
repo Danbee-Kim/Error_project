@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { setRefreshTokenToCookie } from "../actions/Cookie";
-import axios from "axios";
-import BigLogo from "../src_assets/biglogo.png";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import BigLogo from "../src_assets/biglogo.png";
+import axios from "axios";
+import { setRefreshTokenToCookie } from "../actions/Cookie";
 
 function Login() {
   const navigate = useNavigate();
@@ -16,10 +16,10 @@ function Login() {
   });
   const { newId, newPass } = login;
 
-  //유효성검사
   const [idVali, setIdVali] = useState("");
   const [passVali, setPassVali] = useState("");
 
+  //로그인 정보 &쿠키
   const postLogin = async () => {
     try {
       const response = await axios.post(
@@ -27,14 +27,18 @@ function Login() {
         { username: newId, password: newPass }
       );
       console.log(response);
-      setRefreshTokenToCookie(response.headers.authorization);
-
-      alert(response.data);
-      navigate("/");
+      if (response.status === 200) {
+        setRefreshTokenToCookie(response.headers.authorization);
+        alert(response.data);
+        navigate("/main");
+      }
     } catch (error) {
-      alert(error);
+      alert("올바른 정보를 입력해주세요!");
     }
   };
+
+  //유효성 검사
+
   const handleSubmit = (e) => {
     e.preventDefault();
     newId.trim() === "" ? setIdVali("아이디를 입력해주세요!") : setIdVali("");

@@ -14,16 +14,6 @@ function MainPageTable() {
     dispatch(__deleteTodos(id));
   };
 
-  // let data = [
-  //   {
-  //     id: 0,
-  //     created_date: "2022.08.12",
-  //     username: "태민",
-  //     title: "자바 오류",
-  //     isDone: false,
-  //   },
-  // ];
-
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
@@ -96,6 +86,7 @@ const Table = styled.table`
   margin: auto;
   border-top: 1px solid #444444;
   border-collapse: collapse;
+  overflow: auto;
 `;
 
 const TableHead = styled.thead`

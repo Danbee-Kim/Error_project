@@ -19,7 +19,6 @@ function DetailBox() {
     <React.Fragment>
       <Header />
       <DetailContainer>
-        {/* <DetailViewer list={list} setIsEdit={setIsEdit}/> */}
         {isEdit ? (
           <DetailEditor list={list} setIsEdit={() => setIsEdit(!isEdit)} />
         ) : (

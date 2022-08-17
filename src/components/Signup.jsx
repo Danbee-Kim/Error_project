@@ -1,16 +1,12 @@
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { __postCheckId, __postInfo } from "redux/modules/loginSlice";
-import BigLogo from "../src_assets/biglogo.png";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
-
+import styled from "styled-components";
+import BigLogo from "../src_assets/biglogo.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
 function Signup() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [info, setInfo] = useState({
@@ -53,6 +49,7 @@ function Signup() {
         : setPassCheck("");
   };
 
+  //중복아이디 검사
   const [idChecked, setIdChecked] = useState(false);
   const onClickCheck = async () => {
     if (newId.trim() === "") {
@@ -61,7 +58,7 @@ function Signup() {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_BASE_URL}/signup/check`,
-        { username: newId }
+        { username: newId, password: newPass }
       );
       console.log("RESPONSE", response.data);
       if (response.data) {
@@ -74,6 +71,21 @@ function Signup() {
       }
     } catch {}
   };
+  //회원가입 정보
+  const loginInfo = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/signup`,
+        { username: newId, password: newPass }
+      );
+      if (response.data === true) {
+        alert("회원가입 축하합니다!");
+        navigate("/main");
+      }
+    } catch (error) {
+      alert("올바른 정보를 입력해주세요!");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -84,13 +96,12 @@ function Signup() {
       return alert("아이디 중복확인을 해주세요!");
     }
     if (idChecked) {
-      dispatch(__postInfo({ username: newId, password: newPass })).then(() =>
-        navigate("/login")
-      );
+      loginInfo();
     }
   };
+
   const onClickHandler = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (
