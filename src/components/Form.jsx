@@ -30,7 +30,7 @@ function Form() {
   const onSubmitHandler = () => {
     // dispatch(__postToken());
     dispatch(__postTodos(post));
-    navigate("/");
+    navigate("/main");
   };
 
   return (

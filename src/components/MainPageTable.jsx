@@ -8,13 +8,12 @@ import Button from "./elements/Button";
 function MainPageTable() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {todos} = useSelector((state) => state.todos);
+  const { todos } = useSelector((state) => state.todos);
 
   const onSubmitHandler = (id) => {
     dispatch(__deleteTodos(id));
   };
 
- 
   useEffect(() => {
     dispatch(__getTodos());
   }, []);
@@ -83,6 +82,7 @@ const Table = styled.table`
   margin: auto;
   border-top: 1px solid #444444;
   border-collapse: collapse;
+  overflow: auto;
 `;
 
 const TableHead = styled.thead`
