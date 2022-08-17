@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "components/elements/Button";
+import Input from "components/elements/Input";
 
 function DetailViewer({ setIsEdit, list }) {
   const onClickHandler = () => {
     setIsEdit();
   };
-  console.log(list);
+
   return (
     <div>
       <DetailHeader>
@@ -17,6 +18,7 @@ function DetailViewer({ setIsEdit, list }) {
         </HeaderRight>
       </DetailHeader>
       <DetailBody>{list.content}</DetailBody>
+      <Input type="checkbox" />
       <BtnArea>
         <Button size="medium" clickHandler={onClickHandler}>
           수정하기
@@ -45,6 +47,7 @@ const HeaderRight = styled.div`
   font-size: 18px;
 `;
 const CreatedDate = styled.div``;
+
 const CreateUser = styled.div`
   margin-left: 20px;
 `;

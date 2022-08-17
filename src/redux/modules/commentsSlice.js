@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   comments: [],
+  error: null,
 };
 
 export const __addComment = createAsyncThunk(
@@ -79,7 +80,7 @@ export const commentsSlice = createSlice({
     },
     [__addComment.rejected]: (state, action) => {
       state.comments.isLoading = false;
-      state.comments.error = action.payload;
+      state.error = action.payload;
     },
 
     [__deleteComments.pending]: (state, action) => {

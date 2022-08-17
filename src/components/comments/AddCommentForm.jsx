@@ -17,11 +17,12 @@ const AddCommentForm = () => {
 
   const onAddCommentButtonHandler = (event) => {
     event.preventDefault();
-    dispatch(__addComment({ comment }));
-    setComment({
-      username: "",
-      content: "",
-    });
+    console.log("aaa");
+    // dispatch(__addComment({ comment }));
+    // setComment({
+    //   username: "",
+    //   content: "",
+    // });
   };
 
   const onChangeInputHandler = (event) => {
