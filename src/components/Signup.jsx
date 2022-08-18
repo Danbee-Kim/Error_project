@@ -80,7 +80,7 @@ function Signup() {
       );
       if (response.data === true) {
         alert("회원가입 축하합니다!");
-        navigate("/main");
+        navigate("/");
       }
     } catch (error) {
       alert("올바른 정보를 입력해주세요!");
