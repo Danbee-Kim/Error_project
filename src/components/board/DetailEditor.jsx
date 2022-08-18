@@ -20,12 +20,14 @@ function DetailEditor({ list, setIsEdit }) {
   return (
     <div>
       <form onSubmit={onSubmitHandler}>
-        <InputArea>
+        <InputArea >
           <h3>{list.title}</h3>
           <TodoTextarea
             name="content"
             value={content}
             changeHandler={onChangeHandler}
+            minLength={"2"}
+            maxLength={"999"}
           />
         </InputArea>
         <BtnArea>
@@ -39,9 +41,8 @@ function DetailEditor({ list, setIsEdit }) {
 }
 
 export default DetailEditor;
-
 const InputArea = styled.div`
-  width: 1280px;
+  width: 100%;
   margin: auto;
 `;
 

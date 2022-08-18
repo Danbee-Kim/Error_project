@@ -35,7 +35,7 @@ function DetailBox() {
             setCheck={() => setCheck(!check)}
           />
         )}
-        <CommentList />
+        {/* <CommentList /> */}
       </DetailContainer>
     </React.Fragment>
   );
@@ -45,7 +45,7 @@ export default DetailBox;
 
 const DetailContainer = styled.div`
   width: 80vw;
-  height: 400px;
+  /* height: 400px; */
   background-color: #f0efe9;
   margin: 80px auto 20px;
   border-radius: 10px;

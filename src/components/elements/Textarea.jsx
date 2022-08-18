@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const TodoTextarea = ({ defaultValue, changeHandler }) => {
+const TodoTextarea = ({ defaultValue, changeHandler,minLength,maxLength }) => {
   return (
     <TodoTextareaContainer>
       <StyledTextarea
@@ -11,6 +11,8 @@ const TodoTextarea = ({ defaultValue, changeHandler }) => {
         placeholder="내용을 입력해주세요 (200자 이내)"
         defaultValue={defaultValue}
         onChange={changeHandler}
+        minLength={minLength}
+        maxLength={maxLength}
       ></StyledTextarea>
     </TodoTextareaContainer>
   );

@@ -34,7 +34,7 @@ function Form() {
   };
 
   return (
-    <form onSubmit={onSubmitHandler}>
+    <InputForm onSubmit={onSubmitHandler}>
       <InputArea>
         <h3>제목</h3>
         <Input
@@ -42,12 +42,18 @@ function Form() {
           name="title"
           changeHandler={changeHandler}
           value={title}
+          maxLength="40"
+          minLength="2"
+          width="80%"
         />
         <h3>내용</h3>
         <TodoTextarea
           name="content"
           value={content}
           changeHandler={changeHandler}
+          maxLength="200"
+          minLength="2"
+          width="80%"
         />
       </InputArea>
       <BtnArea>
@@ -55,11 +61,16 @@ function Form() {
           작성완료
         </Button>
       </BtnArea>
-    </form>
+    </InputForm>
   );
 }
 
 export default Form;
+const InputForm = styled.form`
+  margin:40px auto;
+
+`;
+
 
 const InputArea = styled.div`
   width: 1000px;
@@ -67,7 +78,7 @@ const InputArea = styled.div`
 `;
 
 const BtnArea = styled.div`
-  margin: 100px auto 80px;
+  margin: 50px auto 80px;
   display: flex;
   justify-content: center;
 `;

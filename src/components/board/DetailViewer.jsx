@@ -59,7 +59,9 @@ function DetailViewer({ list, setIsEdit, setCheck }) {
 
 export default DetailViewer;
 
-const DetailHeader = styled.div``;
+const DetailHeader = styled.div`
+  
+`;
 
 const Title = styled.div`
   display: flex;
@@ -90,14 +92,15 @@ const CreateUser = styled.div`
 `;
 
 const DetailBody = styled.div`
-  padding: 40px 25px 20px;
-  margin-bottom: 400px;
+  padding: 40px 25px;
+  margin-bottom: 40px;
   font-size: 20px;
   max-width: 1200px;
+  overflow: auto;
 `;
 
 const BtnArea = styled.div`
-  margin: 100px auto 80px;
+  margin: 0px auto;
   display: flex;
   justify-content: center;
 `;
