@@ -7,7 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 const store = configureStore({
   reducer: {
     todos: todos,
-    login: login,
+    // login: login,
     comments: comments,
   },
 });
