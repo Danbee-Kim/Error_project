@@ -15,7 +15,7 @@ export const __createComments = createAsyncThunk(
         `${process.env.REACT_APP_SERVER_BASE_URL}/comment`,
         payload
       );
-      // console.log("data@#", data);
+      console.log("data@#", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {
       // console.log("error!@", e);
@@ -62,8 +62,8 @@ export const commentsSlice = createSlice({
     },
     [__createComments.fulfilled]: (state, action) => {
       state.comments.isLoading = false;
-      // console.log(state.comments);
-      // console.log(action.payload);
+      console.log(state.comments);
+      console.log(action.payload);
       state.comments.push(action.payload);
     },
     [__createComments.rejected]: (state, action) => {

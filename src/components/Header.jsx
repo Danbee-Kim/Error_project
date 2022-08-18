@@ -9,7 +9,8 @@ function Header() {
   const onClickDelete=()=>{
     logout();
     window.location.replace("/");
-  }
+  };
+
   useEffect(() => {
     getRefreshToken()
   }, []);

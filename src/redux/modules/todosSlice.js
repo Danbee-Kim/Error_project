@@ -46,19 +46,19 @@ export const __readTodos = createAsyncThunk(
   }
 );
 
-export const __readTodo = createAsyncThunk(
-  "readTodo",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axios.get(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/articles`
-      );
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+// export const __readTodo = createAsyncThunk(
+//   "readTodo",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const data = await axios.get(
+//         `${process.env.REACT_APP_SERVER_BASE_URL}/articles`
+//       );
+//       return thunkAPI.fulfillWithValue(data.data);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
 
 export const __updateTodos = createAsyncThunk(
   "updateTodos",
@@ -85,18 +85,20 @@ export const __updateTodos = createAsyncThunk(
 export const __deleteTodos = createAsyncThunk(
   "deleteTodos",
   async (payload, thunkAPI) => {
+    console.log("payload", payload);
     try {
       const data = await axios.delete(
         `${process.env.REACT_APP_SERVER_BASE_URL}/articles/${payload}`,
-        payload,
         {
-          Authorization: getRefreshToken(),
+          headers: {
+            Authorization: getRefreshToken(),
+          },
         }
       );
-      // console.log("data!!@@!!0", data);
+      console.log("data!!@@!!0", data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      // console.log("error!!!", error);
+      console.log("error!!!", error);
       return thunkAPI.rejectWithValue(error);
     }
   }

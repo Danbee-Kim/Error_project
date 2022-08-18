@@ -1,19 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "components/Header";
 import CommentList from "components/comments/CommentList";
 import DetailViewer from "./DetailViewer";
 import DetailEditor from "./DetailEditor";
+import { __readTodos } from "redux/modules/todosSlice";
 
 function DetailBox() {
+  const dispatch = useDispatch();
   const param = useParams();
   const lists = useSelector((state) => state.todos.todos);
   const list = lists.find((list) => list.id === parseInt(param.id));
   const [isEdit, setIsEdit] = useState(false);
   const [check, setCheck] = useState();
+
+  useEffect(() => {
+    dispatch(__readTodos());
+  }, [dispatch]);
 
   return (
     <React.Fragment>

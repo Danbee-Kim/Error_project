@@ -2,9 +2,15 @@ import styled, { css } from "styled-components";
 import { faTrash, faHouse, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Button = ({ children, size, variant, type, clickHandler,disabled}) => {
+const Button = ({ children, size, variant, type, clickHandler, disabled }) => {
   return (
-    <StButton size={size} variant={variant} type={type} onClick={clickHandler} disabled={disabled} >
+    <StButton
+      size={size}
+      variant={variant}
+      type={type}
+      onClick={clickHandler}
+      disabled={disabled}
+    >
       {children}
       {variant === "delete" && <FontAwesomeIcon icon={faTrash} size="1x" />}
       {variant === "home" && <FontAwesomeIcon icon={faHouse} size="2x" />}
@@ -19,7 +25,7 @@ Button.defaultProps = {
   variant: "",
   type: "button",
   clickHandler: null,
-  disabled:""
+  disabled: "",
 };
 
 export default Button;
@@ -36,6 +42,7 @@ const StButton = styled.button`
         height: 90px;
         border-radius: 8px;
         width: 300px;
+        z-index: 10;
         cursor: pointer;
         :hover {
           background-color: #b8b0dd;

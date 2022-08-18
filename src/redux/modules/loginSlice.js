@@ -1,34 +1,39 @@
-// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
 
-// const initialState = {
-//   userName: "",
-//   isLogin: false,
-// };
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import isLogin from "utils/isLogin";
 
-// export const loginCheck = createAsyncThunk(
-//   "loginCheck",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const response = await axios.get("/islogin");
-//       return thunkAPI.fulfillWithValue(response.data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+const initialState = {
+  userName: "",
+  isLogin: false,
+};
 
-// export const loginSlice = createSlice({
-//   name: "loginSlice",
-//   initialState,
-//   reducers: {},
-//   extraReducers: {
-//     [loginCheck.fulfilled]: (state, action) => {
-//       state.isLogin = action.payload.isLogin;
-//       state.userName = action.payload.userName;
-//     },
-//   },
-// });
+export const loginCheck = createAsyncThunk(
+  "loginCheck",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/islogin`
+      );
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const loginSlice = createSlice({
+  name: "loginSlice",
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [loginCheck.fulfilled]: (state, action) => {
+      state.isLogin = action.payload.isLogin;
+      state.userName = action.payload.userName;
+    },
+  },
+});
+
 
 // export const __postInfo = createAsyncThunk(
 //   "postInfo",
