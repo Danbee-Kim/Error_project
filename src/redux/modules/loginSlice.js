@@ -1,3 +1,4 @@
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import isLogin from "utils/isLogin";
@@ -32,6 +33,7 @@ export const loginSlice = createSlice({
     },
   },
 });
+
 
 // export const __postInfo = createAsyncThunk(
 //   "postInfo",
@@ -135,4 +137,4 @@ export const loginSlice = createSlice({
 //   },
 // });
 
-export default loginSlice.reducer;
+// export default loginSlice.reducer;

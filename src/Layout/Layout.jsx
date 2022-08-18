@@ -6,7 +6,7 @@ const Layout = (props) => {
 
 const LayoutContainer = styled.div`
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
   min-width: 800px;
   margin: auto;
   display: flex;
