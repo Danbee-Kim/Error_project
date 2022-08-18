@@ -35,13 +35,13 @@ const StButton = styled.button`
     return (
       props.size === "medium" &&
       css`
-        font-size: 30px;
+        font-size: 1rem;
         padding: 5px 12px;
         border: 2px solid #b8b0dd;
         background-color: #ffff;
-        height: 90px;
+        height: 40px;
         border-radius: 8px;
-        width: 300px;
+        width: 100px;
         z-index: 10;
         cursor: pointer;
         :hover {
