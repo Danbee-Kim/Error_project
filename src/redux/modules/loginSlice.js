@@ -1,15 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import isLogin from "utils/isLogin";
 
 const initialState = {
-  response: "",
+  userName: "",
+  isLogin: false,
 };
 
 export const loginCheck = createAsyncThunk(
   "loginCheck",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.get("/islogin");
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/islogin`
+      );
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -24,7 +28,7 @@ export const loginSlice = createSlice({
   extraReducers: {
     [loginCheck.fulfilled]: (state, action) => {
       state.isLogin = action.payload.isLogin;
-      state.useName = action.payload.userName;
+      state.userName = action.payload.userName;
     },
   },
 });

@@ -29,7 +29,7 @@ function MainPageTable() {
                 <th>작성일자</th>
                 <th>제목</th>
                 <th>작성자</th>
-                <th>해결여부</th>
+                {/* <th>해결여부</th> */}
               </tr>
             </TableHead>
             <TableBody>
@@ -42,7 +42,7 @@ function MainPageTable() {
                     <td>{article.createdDate}</td>
                     <td>{article.title}</td>
                     <td>{article.username}</td>
-                    <td>{article.isDone ? "해결완료" : "해결중"}</td>
+                    {/* <td>{article.isDone ? "해결완료" : "해결중"}</td> */}
                   </tr>
                 );
               })}

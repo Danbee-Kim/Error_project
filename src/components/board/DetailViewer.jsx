@@ -4,8 +4,11 @@ import { __deleteTodos } from "redux/modules/todosSlice";
 import { useDispatch } from "react-redux";
 import Button from "components/elements/Button";
 import Input from "components/elements/Input";
+import { useNavigate } from "react-router-dom";
 
 function DetailViewer({ list, setIsEdit, setCheck }) {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const onClickEditHandler = () => {
@@ -18,6 +21,7 @@ function DetailViewer({ list, setIsEdit, setCheck }) {
 
   const onClickDeleteHandler = (id) => {
     dispatch(__deleteTodos(id));
+    console.log("id", id);
   };
 
   return (
@@ -29,15 +33,23 @@ function DetailViewer({ list, setIsEdit, setCheck }) {
           <CreateUser>{list.username}</CreateUser>
         </HeaderRight>
         <HeaderLeft>
-          <Input type="checkbox" changeHandler={onCheckHandler} />
+          {/* <Input type="checkbox" changeHandler={onCheckHandler}>
+            해결여부
+          </Input> */}
         </HeaderLeft>
       </DetailHeader>
       <DetailBody>{list.content}</DetailBody>
       <BtnArea>
-        <Button size="medium" clickHandler={onClickEditHandler}>
+        <Button size="small" clickHandler={onClickEditHandler}>
           수정하기
         </Button>
-        <Button size="medium" clickHandler={onClickDeleteHandler}>
+        <Button
+          size="small"
+          clickHandler={() => {
+            onClickDeleteHandler(list.id);
+            navigate("/main");
+          }}
+        >
           삭제하기
         </Button>
       </BtnArea>
