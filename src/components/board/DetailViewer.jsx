@@ -40,11 +40,11 @@ function DetailViewer({ list, setIsEdit, setCheck }) {
       </DetailHeader>
       <DetailBody>{list.content}</DetailBody>
       <BtnArea>
-        <Button size="small" clickHandler={onClickEditHandler}>
+        <Button size="medium" clickHandler={onClickEditHandler}>
           수정하기
         </Button>
         <Button
-          size="small"
+          size="medium"
           clickHandler={() => {
             onClickDeleteHandler(list.id);
             navigate("/main");
