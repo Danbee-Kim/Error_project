@@ -5,11 +5,15 @@ import { useDispatch } from "react-redux";
 import Button from "components/elements/Button";
 import Input from "components/elements/Input";
 
-function DetailViewer({ setIsEdit, list }) {
+function DetailViewer({ list, setIsEdit, setCheck }) {
   const dispatch = useDispatch();
 
   const onClickEditHandler = () => {
     setIsEdit();
+  };
+
+  const onCheckHandler = () => {
+    setCheck();
   };
 
   const onClickDeleteHandler = (id) => {
@@ -24,9 +28,11 @@ function DetailViewer({ setIsEdit, list }) {
           <CreatedDate>{list.createdDate}</CreatedDate>
           <CreateUser>{list.username}</CreateUser>
         </HeaderRight>
+        <HeaderLeft>
+          <Input type="checkbox" changeHandler={onCheckHandler} />
+        </HeaderLeft>
       </DetailHeader>
       <DetailBody>{list.content}</DetailBody>
-      <Input type="checkbox" />
       <BtnArea>
         <Button size="medium" clickHandler={onClickEditHandler}>
           수정하기
@@ -53,6 +59,14 @@ const Title = styled.div`
 const HeaderRight = styled.div`
   float: right;
   padding-right: 40px;
+  display: flex;
+  font-weight: bold;
+  font-size: 18px;
+`;
+
+const HeaderLeft = styled.div`
+  float: left;
+  padding-left: 40px;
   display: flex;
   font-weight: bold;
   font-size: 18px;

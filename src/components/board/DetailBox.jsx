@@ -13,6 +13,7 @@ function DetailBox() {
   const lists = useSelector((state) => state.todos.todos);
   const list = lists.find((list) => list.id === parseInt(param.id));
   const [isEdit, setIsEdit] = useState(false);
+  const [check, setCheck] = useState();
 
   return (
     <React.Fragment>
@@ -21,7 +22,12 @@ function DetailBox() {
         {isEdit ? (
           <DetailEditor list={list} setIsEdit={() => setIsEdit(!isEdit)} />
         ) : (
-          <DetailViewer list={list} setIsEdit={() => setIsEdit(!isEdit)} />
+          <DetailViewer
+            list={list}
+            setIsEdit={() => setIsEdit(!isEdit)}
+            check={check}
+            setCheck={() => setCheck(!check)}
+          />
         )}
         <CommentList />
       </DetailContainer>
