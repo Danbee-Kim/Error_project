@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 function Header() {
   const dispatch=useDispatch();
   const onClickDelete=()=>{
-    logout()
-    window.location.replace("/main");
+    logout();
+    window.location.replace("/");
   }
   useEffect(() => {
     getRefreshToken()
